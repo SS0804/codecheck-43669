@@ -1,11 +1,12 @@
 package codecheck;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
-import org.json.JSONObject;
 
 public class App {
 	public static void main(String[] args) {
@@ -47,9 +48,23 @@ public class App {
 				final int status = connection.getResponseCode();
 	            if (status == HttpURLConnection.HTTP_OK) {
 
-	            	JSONObject jsonObject = new JSONObject(connection.getInputStream());
+	            	InputStream  in = connection.getInputStream();
 
-	            	output = jsonObject.getString("hash");
+	            	BufferedReader  reader = new BufferedReader(new InputStreamReader(in));
+
+					StringBuilder out = new StringBuilder();
+					String line;
+
+					while ((line = reader.readLine()) != null) {
+						out.append(line);
+					}
+					System.out.println(out.toString());
+
+
+
+//	            	JSONObject jsonObject = new JSONObject(connection.getInputStream());
+
+//	            	output = jsonObject.getString("hash");
 	            }
 
 			} catch (MalformedURLException e) {
