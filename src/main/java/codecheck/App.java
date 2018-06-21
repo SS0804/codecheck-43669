@@ -41,8 +41,8 @@ public class App {
 
 
 				connection = (HttpURLConnection) connectUrl.openConnection();
-				connection.connect();
 				connection.setRequestMethod("GET");
+				connection.connect();
 
 				final int status = connection.getResponseCode();
 	            if (status == HttpURLConnection.HTTP_OK) {
