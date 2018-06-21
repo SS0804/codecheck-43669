@@ -5,6 +5,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class App {
@@ -47,29 +48,14 @@ public class App {
 				final int status = connection.getResponseCode();
 	            if (status == HttpURLConnection.HTTP_OK) {
 
-	            	JSONObject json = new JSONObject(connection.getInputStream());
+	            	JSONArray jsonArray = new JSONArray(connection.getInputStream());
 
-	            	output = (String) json.get("hash");
+	            	for (int i =0 ; i < jsonArray.length(); i++) {
 
+	            		JSONObject json = jsonArray.getJSONObject(i);
+	            		output = (String) json.get("hash");
+	            	}
 
-
-//	            	InputStream  in = connection.getInputStream();
-//
-//	            	BufferedReader  reader = new BufferedReader(new InputStreamReader(in));
-//
-//					StringBuilder out = new StringBuilder();
-//					String line;
-//
-//					while ((line = reader.readLine()) != null) {
-//						out.append(line);
-//					}
-//					System.out.println(out.toString());
-
-
-
-//	            	JSONObject jsonObject = new JSONObject(connection.getInputStream());
-
-//	            	output = jsonObject.getString("hash");
 	            }
 
 			} catch (MalformedURLException e) {
