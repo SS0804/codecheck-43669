@@ -1,12 +1,11 @@
 package codecheck;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import org.json.JSONObject;
 
 public class App {
 	public static void main(String[] args) {
@@ -18,9 +17,9 @@ public class App {
 
 			if (i == 0) {
 				param = args[i];
+			} else {
+				param = param + args[i];
 			}
-
-			param = param + args[i];
 
 		}
 
@@ -48,17 +47,23 @@ public class App {
 				final int status = connection.getResponseCode();
 	            if (status == HttpURLConnection.HTTP_OK) {
 
-	            	InputStream  in = connection.getInputStream();
+	            	JSONObject json = new JSONObject(connection.getInputStream());
 
-	            	BufferedReader  reader = new BufferedReader(new InputStreamReader(in));
+	            	output = (String) json.get("hash");
 
-					StringBuilder out = new StringBuilder();
-					String line;
 
-					while ((line = reader.readLine()) != null) {
-						out.append(line);
-					}
-					System.out.println(out.toString());
+
+//	            	InputStream  in = connection.getInputStream();
+//
+//	            	BufferedReader  reader = new BufferedReader(new InputStreamReader(in));
+//
+//					StringBuilder out = new StringBuilder();
+//					String line;
+//
+//					while ((line = reader.readLine()) != null) {
+//						out.append(line);
+//					}
+//					System.out.println(out.toString());
 
 
 
