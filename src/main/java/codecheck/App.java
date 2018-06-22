@@ -1,6 +1,8 @@
 package codecheck;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -32,42 +34,59 @@ public class App {
 		//確認
 		System.out.println(url);
 
-			URL connectUrl =null;
-			try {
+		URL connectUrl =null;
+		try {
 
-				connectUrl = new URL(url);
-
-
-				HttpURLConnection connection = null;
+			connectUrl = new URL(url);
 
 
-				connection = (HttpURLConnection) connectUrl.openConnection();
-				connection.setRequestMethod("GET");
-				connection.connect();
+			HttpURLConnection connection = null;
 
-				final int status = connection.getResponseCode();
-	            if (status == HttpURLConnection.HTTP_OK) {
 
-	            	JSONArray jsonArray = new JSONArray(connection.getInputStream());
+			connection = (HttpURLConnection) connectUrl.openConnection();
+			connection.setRequestMethod("GET");
+			connection.connect();
 
-	            	for (int i =0 ; i < jsonArray.length(); i++) {
+			final int status = connection.getResponseCode();
+			if (status == HttpURLConnection.HTTP_OK) {
 
-	            		JSONObject json = jsonArray.getJSONObject(i);
-	            		output = (String) json.get("hash");
-	            	}
 
-	            }
+				BufferedReader br
+				= new BufferedReader(
+						new InputStreamReader(connection.getInputStream()));
 
-			} catch (MalformedURLException e) {
-				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO 自動生成された catch ブロック
-				e.printStackTrace();
+				StringBuilder sb = new StringBuilder();
+
+				String line;
+
+				while ((line = br.readLine()) != null) {
+					sb.append(line);
+				}
+
+				System.out.println(sb.toString());
+
+				JSONArray jsonArray = new JSONArray(sb.toString());
+
+				for (int i =0 ; i < jsonArray.length(); i++) {
+
+					JSONObject json = jsonArray.getJSONObject(i);
+					output = (String) json.get("hash");
+				}
+
+
+
 			}
 
-			//String output = String.format("argv[%s]: %s", i, args[i]);
-			System.out.println(output);
+		} catch (MalformedURLException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+
+		//String output = String.format("argv[%s]: %s", i, args[i]);
+		System.out.println(output);
 
 	}
 }
