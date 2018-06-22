@@ -7,7 +7,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class App {
@@ -65,13 +64,17 @@ public class App {
 
 				System.out.println(sb.toString());
 
-				JSONArray jsonArray = new JSONArray(sb.toString());
+				JSONObject jsonObject = new JSONObject(sb.toString());
 
-				for (int i =0 ; i < jsonArray.length(); i++) {
 
-					JSONObject json = jsonArray.getJSONObject(i);
-					output = (String) json.get("hash");
-				}
+				System.out.println(jsonObject.get("q"));
+				System.out.println(jsonObject.get("hash"));
+
+//				for (int i =0 ; i < jsonArray.length(); i++) {
+//
+//					JSONObject json = jsonArray.getJSONObject(i);
+//					output = (String) json.get("hash");
+//				}
 
 
 
