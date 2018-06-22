@@ -20,13 +20,10 @@ public class App {
 			if (i == 0) {
 				param = args[i];
 			} else {
-				param = param + args[i];
+				param = param + " " + args[i];
 			}
 
 		}
-
-		//確認
-		System.out.println("param:" + param);
 
 		String url = "http://challenge-server.code-check.io/api/hash?q="+param;
 
@@ -53,12 +50,7 @@ public class App {
 					sb.append(line);
 				}
 
-				//System.out.println(sb.toString());
-
 				JSONObject jsonObject = new JSONObject(sb.toString());
-
-				//System.out.println("q:" + jsonObject.get("q"));
-				//System.out.println("hash:" + jsonObject.get("hash"));
 
 				output = (String) jsonObject.get("hash");
 
