@@ -26,12 +26,9 @@ public class App {
 		}
 
 		//確認
-		//System.out.println("param:" + param);
+		System.out.println("param:" + param);
 
 		String url = "http://challenge-server.code-check.io/api/hash?q="+param;
-
-		//確認
-		//System.out.println("URL:" + url);
 
 		URL connectUrl =null;
 		try {
