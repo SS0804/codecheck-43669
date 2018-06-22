@@ -12,26 +12,26 @@ import org.json.JSONObject;
 public class App {
 	public static void main(String[] args) {
 
-		String param = args[0];
+		String param = null;
 		String output = null;
 
-//		for (int i = 0, l = args.length; i < l; i++) {
-//
-//			if (i == 0) {
-//				param = args[i];
-//			} else {
-//				param = param + args[i];
-//			}
-//
-//		}
+		for (int i = 0, l = args.length; i < l; i++) {
+
+			if (i == 0) {
+				param = args[i];
+			} else {
+				param = param + args[i];
+			}
+
+		}
 
 		//確認
-		System.out.println(param);
+		System.out.println("param:" + param);
 
 		String url = "http://challenge-server.code-check.io/api/hash?q="+param;
 
 		//確認
-		System.out.println(url);
+		System.out.println("URL:" + url);
 
 		URL connectUrl =null;
 		try {
@@ -61,7 +61,7 @@ public class App {
 				JSONObject jsonObject = new JSONObject(sb.toString());
 
 				System.out.println("q:" + jsonObject.get("q"));
-				System.out.println("hash" + jsonObject.get("hash"));
+				System.out.println("hash:" + jsonObject.get("hash"));
 
 				output = (String) jsonObject.get("hash");
 
@@ -75,7 +75,6 @@ public class App {
 			e.printStackTrace();
 		}
 
-		//String output = String.format("argv[%s]: %s", i, args[i]);
 		System.out.println(output);
 
 	}
