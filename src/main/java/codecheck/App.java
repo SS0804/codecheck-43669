@@ -12,18 +12,18 @@ import org.json.JSONObject;
 public class App {
 	public static void main(String[] args) {
 
-		String param = null;
+		String param = args[0];
 		String output = null;
 
-		for (int i = 0, l = args.length; i < l; i++) {
-
-			if (i == 0) {
-				param = args[i];
-			} else {
-				param = param + args[i];
-			}
-
-		}
+//		for (int i = 0, l = args.length; i < l; i++) {
+//
+//			if (i == 0) {
+//				param = args[i];
+//			} else {
+//				param = param + args[i];
+//			}
+//
+//		}
 
 		//確認
 		System.out.println(param);
@@ -38,9 +38,7 @@ public class App {
 
 			connectUrl = new URL(url);
 
-
 			HttpURLConnection connection = null;
-
 
 			connection = (HttpURLConnection) connectUrl.openConnection();
 			connection.setRequestMethod("GET");
@@ -49,11 +47,7 @@ public class App {
 			final int status = connection.getResponseCode();
 			if (status == HttpURLConnection.HTTP_OK) {
 
-
-				BufferedReader br
-				= new BufferedReader(
-						new InputStreamReader(connection.getInputStream()));
-
+				BufferedReader br = new BufferedReader(	new InputStreamReader(connection.getInputStream()));
 				StringBuilder sb = new StringBuilder();
 
 				String line;
@@ -66,17 +60,10 @@ public class App {
 
 				JSONObject jsonObject = new JSONObject(sb.toString());
 
+				System.out.println("q:" + jsonObject.get("q"));
+				System.out.println("hash" + jsonObject.get("hash"));
 
-				System.out.println(jsonObject.get("q"));
-				System.out.println(jsonObject.get("hash"));
-
-//				for (int i =0 ; i < jsonArray.length(); i++) {
-//
-//					JSONObject json = jsonArray.getJSONObject(i);
-//					output = (String) json.get("hash");
-//				}
-
-
+				output = (String) jsonObject.get("hash");
 
 			}
 
