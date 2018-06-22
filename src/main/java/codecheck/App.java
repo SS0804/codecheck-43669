@@ -20,13 +20,10 @@ public class App {
 			if (i == 0) {
 				param = args[i];
 			} else {
-				param = param + " " + args[i];
+				param = param + args[i];
 			}
 
 		}
-
-		System.out.println(param);
-
 
 		String url = "http://challenge-server.code-check.io/api/hash?q="+param;
 
