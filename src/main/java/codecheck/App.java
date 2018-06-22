@@ -56,7 +56,7 @@ public class App {
 					sb.append(line);
 				}
 
-				System.out.println(sb.toString());
+				//System.out.println(sb.toString());
 
 				JSONObject jsonObject = new JSONObject(sb.toString());
 
